@@ -2,6 +2,8 @@ import React, {useContext} from "react";
 import styled from "styled-components";
 import {Wrapper} from "../utils/Wrapper";
 import Debug from "../temp/Debug";
+import ThemeContext from "../../context/ThemeContext";
+import { Link } from "gatsby";
 
 const HeaderElement = styled.header`
   background: #001E59;
@@ -19,18 +21,21 @@ const Header = ({ data }: any) => {
   //  initializing the `storefrontContext`.
   // @ts-ignore
 
-  return <HeaderElement id={'header'}>
-    <Wrapper style={{ display: 'flex', padding: '1rem 0' }}>
-      <img
-        alt={meta.alt}
-        title={meta.alt}
-        src={'https://dz57b37czzuk6.cloudfront.net/storefronts/globalrewards/accelerator/master/static/images/logo_global-rewards.svg'} />
-      <span style={{ flexGrow: 1 }} />
-    </Wrapper>
-    <Wrapper>
-      <Debug title={'Data from SFCC'} data={data} />
-    </Wrapper>
-  </HeaderElement>
+  return (
+    <HeaderElement id={'header'}>
+      <Link to={'/'}>Back</Link>
+      <Wrapper style={{ display: 'flex', padding: '1rem 0' }}>
+        <img
+          alt={meta.alt}
+          title={meta.alt}
+          src={'https://dz57b37czzuk6.cloudfront.net/storefronts/globalrewards/accelerator/master/static/images/logo_global-rewards.svg'} />
+        <span style={{ flexGrow: 1 }} />
+      </Wrapper>
+      <Wrapper>
+        <Debug title={'Data from SFCC'} data={data} />
+      </Wrapper>
+    </HeaderElement>
+  )
 }
 
 export default Header;

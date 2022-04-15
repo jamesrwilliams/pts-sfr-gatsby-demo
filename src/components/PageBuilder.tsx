@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {Header, Marketing, Offer, Content, Footer} from "./blocks";
+import {Layout} from "./Layout";
 
 const UnmappedComponent = styled.section`
   background: yellow;
@@ -24,22 +25,24 @@ const PageBuilder = ({pageData}: any) => {
   }
 
   return (
-    <main id={'storefront'}>
-      { slices.regions.map((slice: any) => {
-        // @ts-ignore
-        const SliceComponent = componentMapping[slice.id];
-        if (SliceComponent) {
+    <Layout>
+      <main id={'storefront'}>
+        { slices.regions.map((slice: any) => {
+          // @ts-ignore
+          const SliceComponent = componentMapping[slice.id];
+          if (SliceComponent) {
+            return (
+              <SliceComponent data={slice.components} key={`slice-${slice.id}`}/>
+            )
+          }
           return (
-            <SliceComponent data={slice.components} key={`slice-${slice.id}`}/>
+            <UnmappedComponent key={`slice-${new Date().toISOString()}`}>
+              No slice component mapped for: <code>{JSON.stringify(slice.id)}</code>
+            </UnmappedComponent>
           )
-        }
-        return (
-          <UnmappedComponent key={`slice-${new Date().toISOString()}`}>
-            No slice component mapped for: <code>{JSON.stringify(slice.id)}</code>
-          </UnmappedComponent>
-        )
-      })}
-    </main>
+        })}
+      </main>
+    </Layout>
   )
 }
 
